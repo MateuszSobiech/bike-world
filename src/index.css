@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bias-line {
+  position: relative;
+}
+
+.bias-line::before {
+  content: '';
+  position: absolute;
+  width: 110%;
+  height: 2px;
+  background: black;
+  top: 11px;
+  left: -5px;
+  transform: rotate(349deg);
+}
