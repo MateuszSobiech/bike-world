@@ -16,3 +16,7 @@
   left: -5px;
   transform: rotate(349deg);
 }
+
+input {
+  padding-left: 12px;
+}

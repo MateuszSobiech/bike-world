@@ -12,7 +12,7 @@ export const Sidebar = () => {
   };
 
   return (
-    <aside className='pb-28 border-gray-400 border-l border'>
+    <aside className='pb-28 border-gray-400 border-r'>
       {/* TODO border + max height */}
       <h2 className='bg-blue-600 text-3xl font-bold text-center p-2 mb-4'>Kategorie</h2>
       <ul className='flex flex-col gap-6 text-center text-[20px]'>

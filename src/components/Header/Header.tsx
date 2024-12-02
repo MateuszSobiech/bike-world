@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { SearchInput } from './SearchInput/SearchInput';
 import { CartIcon } from './CartIcon/CartIcon';
+import { LoginIcon } from './LoginIcon/LoginIcon';
 
 export const Header = () => {
   return (
-    <header className='bg-black sticky flex justify-between text-white py-4 px-8'>
-      {/* TODO sticky nie działa */}
+    <header className='bg-black sticky top-0 z-30 flex justify-between text-white py-4 px-8'>
       <div className='flex gap-32'>
         <Link to='/'>
           <h1 className='text-3xl flex items-end gap-2 font-bold'>
@@ -21,9 +21,14 @@ export const Header = () => {
           </div>
         </div>
       </div>
-      <Link to='/koszyk' className='flex items-center gap-2'>
-        <CartIcon />
-      </Link>
+      <div className='relative text-xl flex items-center gap-2 pr-6'>
+        <Link to='zaloguj'>
+          <LoginIcon />
+        </Link>
+        <Link to='/koszyk' className='flex items-center gap-2'>
+          <CartIcon />
+        </Link>
+      </div>
     </header>
   );
 };

@@ -5,7 +5,7 @@ interface Props {
   children: ReactNode;
 }
 
-interface CartEntity {
+export interface CartEntity {
   productId: Product['id'];
   amount: number;
 }
@@ -18,7 +18,7 @@ interface CartProviderValues {
 const CartContext = createContext<CartProviderValues | null>(null);
 
 export const CartProvider = ({ children }: Props) => {
-  const [cartEntities, setCartEntities] = useState<CartEntity[]>([]);
+  const [cartEntities, setCartEntities] = useState<CartEntity[]>([{ amount: 3, productId: 0 }]);
 
   return (
     <CartContext.Provider value={{ cartEntities, setCartEntities }}>

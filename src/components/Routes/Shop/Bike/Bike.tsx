@@ -30,13 +30,13 @@ export const Bike = ({ product }: Props) => {
   };
 
   return (
-    <div className='hover:shadow-2xl rounded-md p-4 text-center relative min-h-[440px] flex flex-col justify-between'>
+    <div className='max-h-max hover:shadow-2xl rounded-md p-4 text-center relative min-h-[440px] flex flex-col justify-between'>
       <img className='h-auto w-[330px]' src={product.image} alt={product.name} />
       <div className='flex flex-col gap-4'>
         <p className='text-2xl font-bold'>{product.name}</p>
         <p className='text-gray-500'>{product.description}</p>
         <div className='flex gap-2 justify-center items-end'>
-          {product.onSale && <span className='bias-line'>{product.price.toFixed(2)}zł</span>}
+          {product.onSale && <span className='bias-line'>{product.price.toFixed(2)} zł</span>}
           <span className='text-green-600 font-bold text-2xl'>{price.toFixed(2)} zł</span>
         </div>
         <button
