@@ -30,24 +30,24 @@ export const Bike = ({ product }: Props) => {
   };
 
   return (
-    <div className='max-h-max hover:shadow-2xl rounded-md p-4 text-center relative min-h-[440px] flex flex-col justify-between'>
+    <div className='relative flex h-[-moz-max-content] max-h-max min-h-[440px] flex-col justify-between rounded-md p-4 text-center hover:shadow-2xl'>
       <img className='h-auto w-[330px]' src={product.image} alt={product.name} />
       <div className='flex flex-col gap-4'>
         <p className='text-2xl font-bold'>{product.name}</p>
         <p className='text-gray-500'>{product.description}</p>
-        <div className='flex gap-2 justify-center items-end'>
+        <div className='flex items-end justify-center gap-2'>
           {product.onSale && <span className='bias-line'>{product.price.toFixed(2)} zł</span>}
-          <span className='text-green-600 font-bold text-2xl'>{price.toFixed(2)} zł</span>
+          <span className='text-2xl font-bold text-green-600'>{price.toFixed(2)} zł</span>
         </div>
         <button
           onClick={onClickAddProductToCart}
-          className='p-2 px-4 mx-auto bg-black text-white hover:text-blue-600 rounded w-max  text-xl '
+          className='mx-auto w-max rounded bg-black p-2 px-4 text-xl text-white hover:text-blue-600'
         >
           Dodaj do koszyka
         </button>
       </div>
       {product.onSale && (
-        <p className='absolute top-0 right-0 bg-gray-700 text-blue-400 py-1 px-2 rounded'>
+        <p className='absolute right-0 top-0 rounded bg-gray-700 px-2 py-1 text-blue-400'>
           Promocja
         </p>
       )}
