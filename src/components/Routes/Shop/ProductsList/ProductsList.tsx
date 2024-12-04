@@ -1,9 +1,9 @@
-import { useFilterContext } from "../../../../contexts/FilterContextProvider";
-import { products } from "../../../../data/products";
-import { BikesList } from "../BikesList/BikesList";
-
+import { useFilterContext } from '../../../../contexts/FilterContextProvider';
+import { useProductsContext } from '../../../../contexts/ProductsProvider';
+import { BikesList } from '../BikesList/BikesList';
 
 export const ProductsList = () => {
+  const products = useProductsContext();
   const { filters } = useFilterContext();
 
   const filtredProducts = products.filter((product) => {
@@ -15,11 +15,11 @@ export const ProductsList = () => {
   });
 
   return (
-    <div className='flex flex-wrap gap-12 justify-center p-8'>
+    <div className='flex flex-wrap justify-center gap-12 p-8'>
       {filtredProducts.length > 0 ? (
         <BikesList filtredProducts={filtredProducts} />
       ) : (
-        <h1 className='font-bold text-4xl'>Nie znaleziono żadnego produktu...</h1>
+        <h1 className='text-4xl font-bold'>Nie znaleziono żadnego produktu...</h1>
       )}
     </div>
   );

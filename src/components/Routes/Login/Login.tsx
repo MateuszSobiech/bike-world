@@ -1,14 +1,26 @@
 import { ChangeEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginWithEmail, loginWithGoogle } from '../../../firebase/auth';
 
 export const Login = () => {
-  const [state, setState] = useState({ login: '', password: '' });
+  const [state, setState] = useState({ email: 'test@gmail.com', password: 'test100' });
+  const navigate = useNavigate();
 
   const onChangeFormState = (event: ChangeEvent<HTMLInputElement>) => {
     setState({
       ...state,
       [event.target.name]: event.target.value,
     });
+  };
+
+  const onClickLoginWithEmail = async () => {
+    await loginWithEmail(state.email, state.password);
+    navigate('/');
+  };
+
+  const onClickLoginWithGoogle = async () => {
+    await loginWithGoogle()
+    navigate('/')
   };
 
   return (
@@ -19,11 +31,11 @@ export const Login = () => {
         <div className='flex flex-col gap-8'>
           <div>
             <label>
-              <span className='text-xl'>Login: </span>
+              <span className='text-xl'>Email: </span>
               <br />
               <input
-                value={state.login}
-                name='login'
+                value={state.email}
+                name='email'
                 onChange={onChangeFormState}
                 type='text'
                 className='h-8 border'
@@ -39,14 +51,20 @@ export const Login = () => {
                 value={state.password}
                 name='password'
                 onChange={onChangeFormState}
-                type='text'
+                type='password'
                 className='h-8 border'
               />
             </label>
           </div>
 
-          <button className='bg-gray-400'>Zaloguj</button>
-          <Link to='/rejestracja' className='bg-gray-400'>
+          <button className='rounded-lg border p-2' onClick={onClickLoginWithEmail}>
+            Zaloguj
+          </button>
+          <button className='rounded-lg border p-2 flex justify-center gap-4' onClick={onClickLoginWithGoogle}>
+            <img src="/images/google-icon.svg" alt="google icon" className='size-6' />
+            Zaloguj
+          </button>
+          <Link to='/rejestracja' className='rounded-lg border p-2 text-center'>
             Załóż konto
           </Link>
         </div>

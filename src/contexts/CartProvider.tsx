@@ -1,5 +1,16 @@
-import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from 'react';
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { Product } from '../data/products';
+import { useAuthContext } from './AuthProvider';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { db } from '../firebase/firebase';
 
 interface Props {
   children: ReactNode;
@@ -18,7 +29,21 @@ interface CartProviderValues {
 const CartContext = createContext<CartProviderValues | null>(null);
 
 export const CartProvider = ({ children }: Props) => {
-  const [cartEntities, setCartEntities] = useState<CartEntity[]>([{ amount: 3, productId: 0 }]);
+  const user = useAuthContext();
+  const [cartEntities, setCartEntities] = useState<CartEntity[]>([]);
+
+  useEffect(() => {
+    if (user) {
+      setCartEntities(user.order);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      const docRef = doc(db, 'users', user.uid);
+      updateDoc(docRef, { order: cartEntities });
+    }
+  }, [cartEntities]);
 
   return (
     <CartContext.Provider value={{ cartEntities, setCartEntities }}>

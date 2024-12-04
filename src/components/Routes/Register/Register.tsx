@@ -1,12 +1,13 @@
 import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { RegisterWithEmail, registerWithEmail } from '../../../firebase/auth';
 
 export const Register = () => {
-  const [state, setState] = useState({
-    name: '',
-    surname: '',
-    email: '',
-    password: '',
+  const [state, setState] = useState<RegisterWithEmail>({
+    name: 'Test',
+    surname: 'Testowy',
+    email: 'test@gmail.com',
+    password: 'test100',
   });
   const [showPassword, setShowPassword] = useState(false);
   const [isTermsAccepted, setIsTermsAccepted] = useState(false);
@@ -24,6 +25,8 @@ export const Register = () => {
 
   const onClickCreateAccount = () => {
     if (!isTermsAccepted || Object.values(state).some((value) => !value)) return;
+
+    registerWithEmail(state)
 
     navigation('/');
   };
@@ -90,9 +93,9 @@ export const Register = () => {
                 />
                 <button className='w-8' onClick={onClickToogleShowPassword}>
                   {showPassword ? (
-                    <i className='fa-regular fa-eye-slash'></i>
-                  ) : (
                     <i className='fa-regular fa-eye'></i>
+                  ) : (
+                    <i className='fa-regular fa-eye-slash'></i>
                   )}
                 </button>
               </div>

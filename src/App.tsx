@@ -9,27 +9,33 @@ import { Login } from './components/Routes/Login/Login';
 import { Shipping } from './components/Routes/Shipping/Shipping';
 import { Confirmation } from './components/Routes/Confirmation/Confirmation';
 import { Register } from './components/Routes/Register/Register';
+import { AuthProvider } from './contexts/AuthProvider';
+import { ProductsProvider } from './contexts/ProductsProvider';
 
 export const App = () => {
   return (
     <div className='grid min-h-screen grid-rows-[auto_1fr_auto]'>
       <BrowserRouter>
-        <FilterContextProvider>
-          <CartProvider>
-            <Header />
-            <Routes>
-              <Route path='/' element={<Shop />} />
-              <Route path='/zaloguj' element={<Login />} />
-              <Route path='/rejestracja' element={<Register />} />
-              <Route path='/koszyk'> 
-                <Route index  element={<Cart />}  />
-                <Route path='dane-wysylki' element={<Shipping />}  />
-                <Route path='potwierdzenie' element={<Confirmation />}  />
-              </Route>
-            </Routes>
-            <Footer />
-          </CartProvider>
-        </FilterContextProvider>
+        <AuthProvider>
+          <ProductsProvider>
+            <FilterContextProvider>
+              <CartProvider>
+                <Header />
+                <Routes>
+                  <Route path='/' element={<Shop />} />
+                  <Route path='/zaloguj' element={<Login />} />
+                  <Route path='/rejestracja' element={<Register />} />
+                  <Route path='/koszyk'>
+                    <Route index element={<Cart />} />
+                    <Route path='dane-wysylki' element={<Shipping />} />
+                    <Route path='potwierdzenie' element={<Confirmation />} />
+                  </Route>
+                </Routes>
+                <Footer />
+              </CartProvider>
+            </FilterContextProvider>
+          </ProductsProvider>
+        </AuthProvider>
       </BrowserRouter>
     </div>
   );

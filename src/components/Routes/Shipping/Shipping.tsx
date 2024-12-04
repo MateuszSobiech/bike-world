@@ -1,11 +1,4 @@
 import { ChangeEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
-
-// const navigation = useNavigate()
-
-// useEffect(() => {
-//   navigation('/')
-// }, [])
 
 export const Shipping = () => {
   const [state, setState] = useState({
