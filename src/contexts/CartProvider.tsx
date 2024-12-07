@@ -1,3 +1,4 @@
+import { doc, updateDoc } from 'firebase/firestore';
 import {
   createContext,
   Dispatch,
@@ -8,9 +9,8 @@ import {
   useState,
 } from 'react';
 import { Product } from '../data/products';
-import { useAuthContext } from './AuthProvider';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
+import { useAuthContext } from './AuthProvider';
 
 interface Props {
   children: ReactNode;

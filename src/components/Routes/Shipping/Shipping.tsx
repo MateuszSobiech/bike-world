@@ -1,12 +1,25 @@
-import { ChangeEvent, useState } from 'react';
+import { doc, updateDoc } from 'firebase/firestore';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useAuthContext } from '../../../contexts/AuthProvider';
+import { db } from '../../../firebase/firebase';
+// import debounce from 'lodash.debounce';
 
 export const Shipping = () => {
+  const user = useAuthContext();
+  // const updateDebounceRef = useRef<() => void | null>(null);
   const [state, setState] = useState({
-    name: 'Krzysztof Plusa',
-    phoneNumber: '123456789',
-    city: 'Warszawa',
-    street: 'Diamentowa 10',
-    postcode: '02-210',
+    // name: 'Krzysztof',
+    // surname: 'Plusa',
+    // phoneNumber: '123456789',
+    // city: 'Warszawa',
+    // street: 'Diamentowa 10',
+    // postcode: '02-210',
+    name: '',
+    surname: '',
+    phoneNumber: '',
+    city: '',
+    street: '',
+    postcode: '',
   });
 
   const onChangeFormState = (event: ChangeEvent<HTMLInputElement>) => {
@@ -15,6 +28,41 @@ export const Shipping = () => {
       [event.target.name]: event.target.value,
     });
   };
+
+  useEffect(() => {
+    if (user) {
+      setState({
+        name: user.name || '',
+        surname: user.surname || '',
+        phoneNumber: user.phoneNumber || '',
+        city: user.city || '',
+        street: user.street || '',
+        postcode: user.postcode || '',
+      });
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      // if (updateDebounceRef.current !== null) {
+      //   updateDebounceRef.current();
+      // }
+
+      const docRef = doc(db, 'users', user.uid);
+
+      // const updateDebounce = debounce(() => {
+      updateDoc(docRef, state);
+      // }, 1000);
+
+      // if (updateDebounceRef.current) {
+      //   updateDebounceRef.current();
+      // } else {
+      //   updateDebounceRef.current = updateDebounce;
+      //   // TODO
+      //   updateDebounce();
+      // }
+    }
+  }, [state]);
 
   return (
     <div className='flex justify-center p-4'>
@@ -31,8 +79,16 @@ export const Shipping = () => {
                 name='name'
                 onChange={onChangeFormState}
                 type='text'
+                className='mr-4 h-8 border'
+                placeholder='Adam'
+              />
+              <input
+                value={state.surname}
+                name='surname'
+                onChange={onChangeFormState}
+                type='text'
                 className='h-8 border'
-                placeholder='Adam Kowalski'
+                placeholder='Kowalski'
               />
             </label>
           </div>
