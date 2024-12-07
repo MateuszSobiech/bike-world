@@ -18,6 +18,7 @@ export interface UserDetails {
   uid: User['uid'];
   name: string;
   surname: string;
+  email: string;
   phoneNumber: string;
   city: string;
   street: string;
@@ -45,6 +46,7 @@ const addUserToFirebase = async (
     uid: userCredential.user.uid,
     name: options.name || '',
     surname: options.surname || '',
+    email: userCredential.user.email || '',
     phoneNumber: '',
     city: '',
     street: '',
@@ -52,7 +54,8 @@ const addUserToFirebase = async (
     order: [],
   };
 
-  setDoc(docRef, user);
+  await setDoc(docRef, user);
+  // TODO
 };
 
 export const registerWithEmail = async ({ email, password, name, surname }: RegisterWithEmail) => {

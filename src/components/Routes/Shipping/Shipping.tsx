@@ -1,12 +1,24 @@
+import {
+  CreateOrderActions,
+  CreateOrderData,
+  OnApproveActions,
+  OnApproveData,
+} from '@paypal/paypal-js';
+import { PayPalButtons } from '@paypal/react-paypal-js';
 import { doc, updateDoc } from 'firebase/firestore';
 import { ChangeEvent, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../../contexts/AuthProvider';
 import { db } from '../../../firebase/firebase';
+import { useCart } from '../../../hooks/useCart';
 // import debounce from 'lodash.debounce';
 
 export const Shipping = () => {
   const user = useAuthContext();
+  const navigate = useNavigate();
+  const { sumPrice } = useCart();
   // const updateDebounceRef = useRef<() => void | null>(null);
+
   const [state, setState] = useState({
     // name: 'Krzysztof',
     // surname: 'Plusa',
@@ -16,6 +28,7 @@ export const Shipping = () => {
     // postcode: '02-210',
     name: '',
     surname: '',
+    email: '',
     phoneNumber: '',
     city: '',
     street: '',
@@ -34,6 +47,7 @@ export const Shipping = () => {
       setState({
         name: user.name || '',
         surname: user.surname || '',
+        email: user.email || '',
         phoneNumber: user.phoneNumber || '',
         city: user.city || '',
         street: user.street || '',
@@ -63,6 +77,54 @@ export const Shipping = () => {
       // }
     }
   }, [state]);
+
+  const onCreateOrder = (data: CreateOrderData, actions: CreateOrderActions) => {
+    return actions.order.create({
+      intent: 'CAPTURE',
+      purchase_units: [
+        {
+          amount: {
+            value: sumPrice.toFixed(2),
+            currency_code: 'PLN',
+          },
+          payee: {
+            email_address: state.email,
+          },
+          shipping: {
+            name: {
+              full_name: `${state.name} ${state.surname}`,
+            },
+            address: {
+              address_line_1: state.street,
+              admin_area_2: state.city,
+              postal_code: state.postcode,
+              country_code: 'PL',
+            },
+          },
+        },
+      ],
+    });
+  };
+
+  const onApproveOrder = (data: OnApproveData, actions: OnApproveActions) => {
+    return actions.order!.capture().then((details) => {
+      console.log('DETAILS', details);
+
+      const {
+        id,
+        purchase_units: [
+          {
+            amount,
+            shipping: { address },
+          },
+        ],
+      } = details;
+
+      navigate(
+        `/koszyk/potwierdzenie?id=${id}&amountValue=${amount.value}&amountCode=${amount.currency_code}&street=${address.address_line_1}&city=${address.admin_area_2}`
+      );
+    });
+  };
 
   return (
     <div className='flex justify-center p-4'>
@@ -110,6 +172,21 @@ export const Shipping = () => {
 
           <div>
             <label>
+              <span className='text-xl'>Email: </span>
+              <br />
+              <input
+                value={state.email}
+                name='email'
+                onChange={onChangeFormState}
+                type='text'
+                className='h-8 border'
+                placeholder='example@gmail.com'
+              />
+            </label>
+          </div>
+
+          <div>
+            <label>
               <span className='text-xl'>Adres: </span>
               <br />
 
@@ -141,9 +218,15 @@ export const Shipping = () => {
             </label>
           </div>
 
-          <button className='rounded-lg border bg-blue-500 p-4 text-center text-3xl'>
-            Płatność
-          </button>
+          <div className='mt-16'>
+            <PayPalButtons
+              fundingSource='paypal'
+              style={{ layout: 'vertical' }}
+              forceReRender={[state]}
+              createOrder={(data, actions) => onCreateOrder(data, actions)}
+              onApprove={(data, actions) => onApproveOrder(data, actions)}
+            />
+          </div>
         </div>
       </div>
     </div>
