@@ -5,7 +5,7 @@ import {
   OnApproveData,
 } from '@paypal/paypal-js';
 import { PayPalButtons } from '@paypal/react-paypal-js';
-import { doc, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../../contexts/AuthProvider';

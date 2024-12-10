@@ -3,8 +3,8 @@ const footerItems = ['Wołoska 12, Warszawa', '|', '222-333-444', '|', <span> {n
 export const Footer = () => {
   return (
     <footer className='flex justify-center gap-x-4 items-center bg-black px-8 py-4 text-lg text-white flex-wrap'>
-      {footerItems.map((item) => (
-        <p>{item}</p>
+      {footerItems.map((item, index) => (
+        <p key={index}>{item}</p>
       ))}
     </footer>
   );

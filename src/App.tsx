@@ -15,7 +15,7 @@ import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 export const App = () => {
   const initialOptions = {
-    clientId: 'AY0wsVAv5SQCG4IyjCVOddoAlCgZj1aZ5-woFhkUUUe9L5EJWtgPNu6O4DNeJQTv7QL2AMKgS_YC7W9E',
+    clientId: 'AXx-LpolDohs9253o5uivqPW11azCzR6OvMq5DL8NcoVvi50ktZ5L_UoWZoxIcBBA1UG4Jn_jTE9N8h7',
     currency: 'PLN',
     intent: 'capture',
     // Add other options as needed
