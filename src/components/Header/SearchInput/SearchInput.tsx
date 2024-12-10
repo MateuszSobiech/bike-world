@@ -5,7 +5,7 @@ export const SearchInput = () => {
 
   return (
     <input
-      className='h-full w-96 rounded-tl rounded-bl pl-4 text-black'
+      className='h-full w-96 rounded-tl rounded-bl pl-4 text-black max-sm:w-full max-sm:h-full'
       placeholder='Wyszukaj w sklepie...'
       autoComplete='off'
       value={filters.search}

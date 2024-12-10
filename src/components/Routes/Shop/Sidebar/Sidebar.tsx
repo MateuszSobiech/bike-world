@@ -12,9 +12,9 @@ export const Sidebar = () => {
   };
 
   return (
-    <aside className='pb-28 border-gray-400 border-r'>
+    <aside className='pb-28 border-gray-400 border-r max-sm:border-r-0 max-sm:border-b max-sm:pb-4'>
       <h2 className='bg-blue-600 text-3xl font-bold text-center p-2 mb-4'>Kategorie</h2>
-      <ul className='flex flex-col gap-6 text-center text-[20px]'>
+      <ul className='flex flex-col gap-6 text-center text-[20px] max-sm:flex-row max-sm:flex-wrap max-sm:justify-center'>
         {categories.map((category) => {
           const buttonClasses =
             filters.category === category

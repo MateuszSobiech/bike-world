@@ -33,7 +33,7 @@ export const Register = () => {
 
   return (
     <div className='flex justify-center p-4'>
-      <div className='w-1/3'>
+      <div className='w-1/3 max-sm:w-full max-sm:p-4'>
         <h2 className='mb-8 text-center text-3xl'>Rejestracja</h2>
 
         <div className='flex flex-col gap-8'>
@@ -112,7 +112,7 @@ export const Register = () => {
                 type='checkbox'
                 className='h-6 w-6'
               />
-              <span className='text-xl'>
+              <span className='text-xl max-sm:text-lg'>
                 Akceptuję regulamin sklepu <span className='text-red-600'>(wymagane)</span>{' '}
               </span>
             </label>
@@ -120,7 +120,7 @@ export const Register = () => {
 
           <button
             onClick={onClickCreateAccount}
-            className='rounded-lg border bg-blue-500 p-4 text-center text-2xl'
+            className='rounded-lg border bg-blue-500 p-4 text-center text-2xl max-sm:text-xl max-sm:p-2'
           >
             Załóż konto
           </button>

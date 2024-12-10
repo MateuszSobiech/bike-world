@@ -5,17 +5,19 @@ export const Confirmation = () => {
 
   return (
     <div className='flex justify-center p-4'>
-      <div className='mt-36 w-max'>
-        <p className='mb-4 text-center text-3xl'>Id zamówienia: {params.get('id')}</p>
-        <p className='mb-4 text-center text-3xl'>
-          Zapłacono: {params.get('amountValue')} {params.get('amountCode')}
-        </p>
-        <p className='mb-4 text-center text-3xl'>
-          Adres dostawy: {params.get('street')}, {params.get('city')}
-        </p>
+      <div className='mt-36 max-sm:mt-20 w-max max-sm:w-full'>
+        <div className='text-3xl max-sm:text-2xl'>
+          <p className='mb-4 text-center'>Id zamówienia: {params.get('id')}</p>
+          <p className='mb-4 text-center'>
+            Zapłacono: {params.get('amountValue')} {params.get('amountCode')}
+          </p>
+          <p className='mb-4 text-center'>
+            Adres dostawy: {params.get('street')}, {params.get('city')}
+          </p>
+        </div>
 
         <div className='mt-16 text-center'>
-          <i className='fa-regular fa-circle-check text-[100px] text-[#008000]'></i>
+          <i className='fa-regular fa-circle-check text-[100px] max-sm:text-7xl text-[#008000]'></i>
         </div>
       </div>
     </div>

@@ -127,11 +127,11 @@ export const Shipping = () => {
   };
 
   return (
-    <div className='flex justify-center p-4'>
-      <div className='w-max'>
+    <div className='flex justify-center p-4 '>
+      <div className='w-max max-sm:w-full'>
         <h2 className='mb-8 text-center text-3xl'>Dane do wysyłki</h2>
 
-        <div className='flex flex-col gap-8'>
+        <div className='flex flex-col gap-8 max-sm:items-center'>
           <div>
             <label>
               <span className='text-xl'>Imię i nazwisko: </span>
@@ -141,9 +141,10 @@ export const Shipping = () => {
                 name='name'
                 onChange={onChangeFormState}
                 type='text'
-                className='mr-4 h-8 border'
+                className='mr-4 h-8 border max-sm:mr-0'
                 placeholder='Adam'
               />
+              <br className='max-sm:block hidden' />
               <input
                 value={state.surname}
                 name='surname'
@@ -198,12 +199,14 @@ export const Shipping = () => {
                 className='h-8 border'
                 placeholder='Miasto'
               />
+              <br className='max-sm:block hidden' />
+
               <input
                 value={state.street}
                 name='street'
                 onChange={onChangeFormState}
                 type='text'
-                className='ml-4 h-8 border'
+                className='ml-4 mt-4 h-8 border max-sm:ml-0'
                 placeholder='Ulica'
               />
               <br />
@@ -218,11 +221,11 @@ export const Shipping = () => {
             </label>
           </div>
 
-          <div className='mt-16'>
+          <div className='mt-16 max-sm:mt-4'>
             <PayPalButtons
               fundingSource='paypal'
               style={{ layout: 'vertical' }}
-              forceReRender={[state]}
+              forceReRender={[state, sumPrice]}
               createOrder={(data, actions) => onCreateOrder(data, actions)}
               onApprove={(data, actions) => onApproveOrder(data, actions)}
             />
