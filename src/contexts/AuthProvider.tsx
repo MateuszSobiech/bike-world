@@ -28,7 +28,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
       if (docSnap.exists()) {
         setUser(docSnap.data() as UserDetails);
-        // TODO sprawdzenie typowania
       } else {
         throw new Error('User already should have details, created during register');
       }

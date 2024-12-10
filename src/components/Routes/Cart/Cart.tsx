@@ -14,7 +14,7 @@ export const Cart = () => {
         {hasEntities ? (
           <ProductsChcekoutList />
         ) : (
-          <div className='text-center'>
+          <div className='text-center text-2xl'>
             <h3>Brak produktów</h3>
             <Link className='text-blue-600' to='/'>
               Przejdź do strony sklepu
@@ -22,12 +22,16 @@ export const Cart = () => {
           </div>
         )}
 
-        <div className={`flex justify-center ${!hasEntities ? 'pointer-events-none' : ''}`}>
-          {/* TODO zablokować LINK if  */}
-          <Link to='dane-wysylki' className='mt-16 rounded-lg border bg-blue-500 p-4 text-3xl text-center'>
-            Dane do wysyłki
-          </Link>
-        </div>
+        {hasEntities && (
+          <div className='flex justify-center'>
+            <Link
+              to='dane-wysylki'
+              className='mt-16 rounded-lg border bg-blue-500 p-4 text-center text-3xl'
+            >
+              Dane do wysyłki
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

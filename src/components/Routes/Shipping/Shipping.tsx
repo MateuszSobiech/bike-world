@@ -72,7 +72,7 @@ export const Shipping = () => {
       //   updateDebounceRef.current();
       // } else {
       //   updateDebounceRef.current = updateDebounce;
-      //   // TODO
+      //   // TODO optymalizacja
       //   updateDebounce();
       // }
     }
