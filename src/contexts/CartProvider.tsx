@@ -8,9 +8,9 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { Product } from '../data/products';
 import { db } from '../firebase/firebase';
 import { useAuthContext } from './AuthProvider';
+import { Product } from './ProductsProvider';
 
 interface Props {
   children: ReactNode;

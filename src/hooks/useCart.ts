@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useCartContext } from '../contexts/CartProvider';
-import { useProductsContext } from '../contexts/ProductsProvider';
+import { Product, useProductsContext } from '../contexts/ProductsProvider';
 import { Order } from '../firebase/auth';
-import { Product } from '../data/products';
 
 export interface ProductsToDisplay extends Order, Product {}
 
 export const useCart = () => {
-  const products = useProductsContext();
+  const {products} = useProductsContext();
   const { cartEntities, setCartEntities } = useCartContext();
   const [productsToDisplay, setProductsToDisplay] = useState<ProductsToDisplay[]>([]);
 

@@ -1,5 +1,5 @@
-import { Product } from '../../../../data/products';
 import { useCartContext } from '../../../../contexts/CartProvider';
+import { Product } from '../../../../contexts/ProductsProvider';
 
 interface Props {
   product: Product;
@@ -30,8 +30,10 @@ export const Bike = ({ product }: Props) => {
   };
 
   return (
-    <div className='relative flex h-[-moz-max-content] max-h-max min-h-[440px] flex-col justify-between rounded-md p-4 text-center hover:shadow-2xl'>
-      <img className='h-auto w-[330px]' src={product.image} alt={product.name} />
+    <div className='relative flex h-[-moz-max-content] max-h-max min-h-[440px] w-[370px] flex-col justify-between rounded-md p-4 text-center hover:shadow-2xl'>
+      <div className='h-[200px]'>
+        <img className='mx-auto h-full w-auto' src={product.image} alt={product.name} />
+      </div>
       <div className='flex flex-col gap-4'>
         <p className='text-2xl font-bold'>{product.name}</p>
         <p className='text-gray-500'>{product.description}</p>

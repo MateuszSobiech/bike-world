@@ -1,4 +1,4 @@
-import { Product } from '../../../../data/products';
+import { Product } from '../../../../contexts/ProductsProvider';
 import { Bike } from '../Bike/Bike';
 
 interface Props {

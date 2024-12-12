@@ -3,7 +3,7 @@ import { useProductsContext } from '../../../../contexts/ProductsProvider';
 import { BikesList } from '../BikesList/BikesList';
 
 export const ProductsList = () => {
-  const products = useProductsContext();
+  const {products} = useProductsContext();
   const { filters } = useFilterContext();
 
   const filtredProducts = products.filter((product) => {

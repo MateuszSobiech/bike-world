@@ -1,5 +1,4 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from 'react';
-import { Category } from '../data/products';
 
 interface Props {
   children: ReactNode;
@@ -7,7 +6,7 @@ interface Props {
 
 interface Filters {
   search: string;
-  category: Category;
+  category: string;
 }
 
 interface FilterContextValues {

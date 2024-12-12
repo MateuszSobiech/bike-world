@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { loginWithEmail, loginWithGoogle } from '../../../firebase/auth';
 
 export const Login = () => {
-  const [state, setState] = useState({ email: 'test@gmail.com', password: 'test100' });
+  const [state, setState] = useState({ email: '', password: '' });
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const onChangeFormState = (event: ChangeEvent<HTMLInputElement>) => {
@@ -13,14 +14,16 @@ export const Login = () => {
     });
   };
 
+  const onClickToogleShowPassword = () => setShowPassword(!showPassword);
+
   const onClickLoginWithEmail = async () => {
     await loginWithEmail(state.email, state.password);
     navigate('/');
   };
 
   const onClickLoginWithGoogle = async () => {
-    await loginWithGoogle()
-    navigate('/')
+    await loginWithGoogle();
+    navigate('/');
   };
 
   return (
@@ -38,7 +41,7 @@ export const Login = () => {
                 name='email'
                 onChange={onChangeFormState}
                 type='text'
-                className='h-8 border'
+                className='h-8 border w-full'
               />
             </label>
           </div>
@@ -47,21 +50,33 @@ export const Login = () => {
             <label>
               <span className='text-xl'>Hasło: </span>
               <br />
-              <input
-                value={state.password}
-                name='password'
-                onChange={onChangeFormState}
-                type='password'
-                className='h-8 border'
-              />
+              <div className='flex gap-4'>
+                <input
+                  value={state.password}
+                  name='password'
+                  onChange={onChangeFormState}
+                  type={`${showPassword ? 'text' : 'password'}`}
+                  className='h-8 border'
+                />
+                <button className='w-8' onClick={onClickToogleShowPassword}>
+                  {showPassword ? (
+                    <i className='fa-regular fa-eye'></i>
+                  ) : (
+                    <i className='fa-regular fa-eye-slash'></i>
+                  )}
+                </button>
+              </div>
             </label>
           </div>
 
           <button className='rounded-lg border p-2' onClick={onClickLoginWithEmail}>
             Zaloguj
           </button>
-          <button className='rounded-lg border p-2 flex justify-center gap-4' onClick={onClickLoginWithGoogle}>
-            <img src="/images/google-icon.svg" alt="google icon" className='size-6' />
+          <button
+            className='flex justify-center gap-4 rounded-lg border p-2'
+            onClick={onClickLoginWithGoogle}
+          >
+            <img src='/images/google-icon.svg' alt='google icon' className='size-6' />
             Zaloguj
           </button>
           <Link to='/rejestracja' className='rounded-lg border p-2 text-center'>

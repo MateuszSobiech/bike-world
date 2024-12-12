@@ -18,7 +18,7 @@ export const Shipping = () => {
   const user = useAuthContext();
   const navigate = useNavigate();
   const { sumPrice } = useCart();
-  const { cartEntities } = useCartContext();
+  const { cartEntities, setCartEntities } = useCartContext();
   // const updateDebounceRef = useRef<() => void | null>(null);
 
   const [state, setState] = useState({
@@ -129,12 +129,14 @@ export const Shipping = () => {
 
         if (docSnap.exists()) return;
 
-        setDoc(docRef, {
+        await setDoc(docRef, {
           orderPayPalId,
           order: cartEntities,
           userId: user?.uid,
           email: state.email,
         });
+        
+        setCartEntities([])
       };
 
       addOrderToFirestore();

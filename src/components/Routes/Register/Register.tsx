@@ -27,7 +27,7 @@ export const Register = () => {
     if (!isTermsAccepted || Object.values(state).some((value) => !value)) return;
 
     registerWithEmail(state)
-
+    
     navigation('/');
   };
 

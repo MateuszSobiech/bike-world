@@ -56,24 +56,26 @@ const addUserToFirebase = async (
 
   await setDoc(docRef, user);
   // TODO
+
+  window.location.reload();
 };
 
 export const registerWithEmail = async ({ email, password, name, surname }: RegisterWithEmail) => {
   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
-  addUserToFirebase(userCredential, { name, surname });
+  await addUserToFirebase(userCredential, { name, surname });
 };
 
 export const loginWithGoogle = async () => {
   const userCredential = await signInWithPopup(auth, googleProvider);
 
-  addUserToFirebase(userCredential);
+  await addUserToFirebase(userCredential);
 };
 
 export const loginWithEmail = async (email: string, password: string) => {
   const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
-  addUserToFirebase(userCredential);
+  await addUserToFirebase(userCredential);
 };
 
 export const logout = async () => {
