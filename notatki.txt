@@ -1,0 +1,13 @@
+APLIKACJA:
+- postawiliśmy aplikacje w Vite jako Build Tool (vite pomaga nam korzystac z paczek npm, typescript i ze zbudowaniem aplikacji do wystawienia na hosting "npm run build")
+- formatujemy kod za pomocą prettiera i pluginu "prettier-plugin-tailwindcss" (package.json)
+
+FRONTEND:
+Framework - React
+Język - TypeScript (nakładka na JavaScript)
+Stylowanie - Tailwind css
+Routing - React Routner
+
+
+BACKEND:
+SaaS (Software as a Service) - Firebase

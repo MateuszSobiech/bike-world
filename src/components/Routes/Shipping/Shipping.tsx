@@ -1,9 +1,4 @@
-import {
-  CreateOrderActions,
-  CreateOrderData,
-  OnApproveActions,
-  OnApproveData,
-} from '@paypal/paypal-js';
+import { CreateOrderActions, OnApproveActions } from '@paypal/paypal-js';
 import { PayPalButtons } from '@paypal/react-paypal-js';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { ChangeEvent, useEffect, useState } from 'react';
@@ -57,7 +52,7 @@ export const Shipping = () => {
     }
   }, [state]);
 
-  const onCreateOrder = (data: CreateOrderData, actions: CreateOrderActions) => {
+  const onCreateOrder = (actions: CreateOrderActions) => {
     return actions.order.create({
       intent: 'CAPTURE',
       purchase_units: [
@@ -85,7 +80,7 @@ export const Shipping = () => {
     });
   };
 
-  const onApproveOrder = (data: OnApproveData, actions: OnApproveActions) => {
+  const onApproveOrder = (actions: OnApproveActions) => {
     return actions.order!.capture().then((details) => {
       console.log('DETAILS', details);
 
@@ -112,8 +107,8 @@ export const Shipping = () => {
           userId: user?.uid,
           email: state.email,
         });
-        
-        setCartEntities([])
+
+        setCartEntities([]);
       };
 
       addOrderToFirestore();
@@ -224,8 +219,8 @@ export const Shipping = () => {
               fundingSource='paypal'
               style={{ layout: 'vertical' }}
               forceReRender={[state, sumPrice]}
-              createOrder={(data, actions) => onCreateOrder(data, actions)}
-              onApprove={(data, actions) => onApproveOrder(data, actions)}
+              createOrder={(data, actions) => onCreateOrder(actions)}
+              onApprove={(data, actions) => onApproveOrder(actions)}
             />
           </div>
         </div>

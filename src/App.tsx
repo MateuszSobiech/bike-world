@@ -14,6 +14,7 @@ import { ProductsProvider } from './contexts/ProductsProvider';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 export const App = () => {
+  // ustawienia początkowe dla PayPala
   const initialOptions = {
     clientId: 'AXx-LpolDohs9253o5uivqPW11azCzR6OvMq5DL8NcoVvi50ktZ5L_UoWZoxIcBBA1UG4Jn_jTE9N8h7',
     currency: 'PLN',
@@ -22,13 +23,16 @@ export const App = () => {
 
   return (
     <div className='grid min-h-screen grid-rows-[auto_1fr_auto]'>
+      {/* Providery bibliotek */}
       <BrowserRouter>
-        <AuthProvider>
-          <ProductsProvider>
-            <FilterContextProvider>
-              <CartProvider>
-                <PayPalScriptProvider options={initialOptions}>
+        <PayPalScriptProvider options={initialOptions}>
+          {/* Nasze Providery */}
+          <AuthProvider>
+            <ProductsProvider>
+              <FilterContextProvider>
+                <CartProvider>
                   <Header />
+                  {/* Odpowiada za zmianę widoków */}
                   <Routes>
                     <Route path='/' element={<Shop />} />
                     <Route path='/zaloguj' element={<Login />} />
@@ -40,11 +44,11 @@ export const App = () => {
                     </Route>
                   </Routes>
                   <Footer />
-                </PayPalScriptProvider>
-              </CartProvider>
-            </FilterContextProvider>
-          </ProductsProvider>
-        </AuthProvider>
+                </CartProvider>
+              </FilterContextProvider>
+            </ProductsProvider>
+          </AuthProvider>
+        </PayPalScriptProvider>
       </BrowserRouter>
     </div>
   );
