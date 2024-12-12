@@ -12,22 +12,14 @@ import { useAuthContext } from '../../../contexts/AuthProvider';
 import { useCartContext } from '../../../contexts/CartProvider';
 import { db } from '../../../firebase/firebase';
 import { useCart } from '../../../hooks/useCart';
-// import debounce from 'lodash.debounce';
 
 export const Shipping = () => {
   const user = useAuthContext();
   const navigate = useNavigate();
   const { sumPrice } = useCart();
   const { cartEntities, setCartEntities } = useCartContext();
-  // const updateDebounceRef = useRef<() => void | null>(null);
 
   const [state, setState] = useState({
-    // name: 'Krzysztof',
-    // surname: 'Plusa',
-    // phoneNumber: '123456789',
-    // city: 'Warszawa',
-    // street: 'Diamentowa 10',
-    // postcode: '02-210',
     name: '',
     surname: '',
     email: '',
@@ -60,23 +52,8 @@ export const Shipping = () => {
 
   useEffect(() => {
     if (user) {
-      // if (updateDebounceRef.current !== null) {
-      //   updateDebounceRef.current();
-      // }
-
       const docRef = doc(db, 'users', user.uid);
-
-      // const updateDebounce = debounce(() => {
       updateDoc(docRef, state);
-      // }, 1000);
-
-      // if (updateDebounceRef.current) {
-      //   updateDebounceRef.current();
-      // } else {
-      //   updateDebounceRef.current = updateDebounce;
-      //   // TODO optymalizacja
-      //   updateDebounce();
-      // }
     }
   }, [state]);
 

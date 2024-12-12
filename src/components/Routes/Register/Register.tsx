@@ -4,10 +4,10 @@ import { RegisterWithEmail, registerWithEmail } from '../../../firebase/auth';
 
 export const Register = () => {
   const [state, setState] = useState<RegisterWithEmail>({
-    name: 'Test',
-    surname: 'Testowy',
-    email: 'test@gmail.com',
-    password: 'test100',
+    name: '',
+    surname: '',
+    email: '',
+    password: '',
   });
   const [showPassword, setShowPassword] = useState(false);
   const [isTermsAccepted, setIsTermsAccepted] = useState(false);

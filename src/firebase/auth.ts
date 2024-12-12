@@ -55,7 +55,6 @@ const addUserToFirebase = async (
   };
 
   await setDoc(docRef, user);
-  // TODO
 
   window.location.reload();
 };

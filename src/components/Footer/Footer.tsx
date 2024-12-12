@@ -9,5 +9,3 @@ export const Footer = () => {
     </footer>
   );
 };
-
-// TODO biała kreska na dole tylko na iPhone 12

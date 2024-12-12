@@ -16,7 +16,6 @@ export const Header = () => {
 
   return (
     <header className='sticky top-[-1px] z-30 flex justify-between bg-black px-8 py-4 text-white max-sm:w-full max-sm:flex-col'>
-      {/* TODO na gorze skacze kreska */}
       <div className='flex gap-32 max-sm: max-sm:gap-6 max-sm:items-center max-sm:justify-between'>
         <Link to='/'>
           <h1 className='flex items-end gap-2 text-3xl font-bold max-sm:flex-col max-sm:items-start'>
