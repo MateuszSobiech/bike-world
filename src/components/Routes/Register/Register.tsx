@@ -23,10 +23,10 @@ export const Register = () => {
 
   const onClickToogleShowPassword = () => setShowPassword(!showPassword);
 
-  const onClickCreateAccount = () => {
-    if (!isTermsAccepted || Object.values(state).some((value) => !value)) return;
+  const onClickCreateAccount = async () => {
+    if (!isTermsAccepted || Object.values(state).some((value) => !value) || state.password.length < 6) return;
 
-    registerWithEmail(state)
+    await registerWithEmail(state)
     
     navigation('/');
   };
@@ -81,7 +81,7 @@ export const Register = () => {
 
           <div>
             <label>
-              <span className='text-xl'>Hasło: </span>
+              <span className='text-xl'>Hasło: (minimum 6 znaków)</span>
               <br />
               <div className='flex gap-4'>
                 <input
