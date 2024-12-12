@@ -5,10 +5,11 @@ import {
   OnApproveData,
 } from '@paypal/paypal-js';
 import { PayPalButtons } from '@paypal/react-paypal-js';
-import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../../contexts/AuthProvider';
+import { useCartContext } from '../../../contexts/CartProvider';
 import { db } from '../../../firebase/firebase';
 import { useCart } from '../../../hooks/useCart';
 // import debounce from 'lodash.debounce';
@@ -17,6 +18,7 @@ export const Shipping = () => {
   const user = useAuthContext();
   const navigate = useNavigate();
   const { sumPrice } = useCart();
+  const { cartEntities } = useCartContext();
   // const updateDebounceRef = useRef<() => void | null>(null);
 
   const [state, setState] = useState({
@@ -120,6 +122,23 @@ export const Shipping = () => {
         ],
       } = details;
 
+      const addOrderToFirestore = async () => {
+        const orderPayPalId = id;
+        const docRef = doc(db, 'orders', String(orderPayPalId));
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) return;
+
+        setDoc(docRef, {
+          orderPayPalId,
+          order: cartEntities,
+          userId: user?.uid,
+          email: state.email,
+        });
+      };
+
+      addOrderToFirestore();
+
       navigate(
         `/koszyk/potwierdzenie?id=${id}&amountValue=${amount.value}&amountCode=${amount.currency_code}&street=${address.address_line_1}&city=${address.admin_area_2}`
       );
@@ -127,7 +146,7 @@ export const Shipping = () => {
   };
 
   return (
-    <div className='flex justify-center p-4 '>
+    <div className='flex justify-center p-4'>
       <div className='w-max max-sm:w-full'>
         <h2 className='mb-8 text-center text-3xl'>Dane do wysyłki</h2>
 
@@ -144,7 +163,7 @@ export const Shipping = () => {
                 className='mr-4 h-8 border max-sm:mr-0'
                 placeholder='Adam'
               />
-              <br className='max-sm:block hidden' />
+              <br className='hidden max-sm:block' />
               <input
                 value={state.surname}
                 name='surname'
@@ -199,7 +218,7 @@ export const Shipping = () => {
                 className='h-8 border'
                 placeholder='Miasto'
               />
-              <br className='max-sm:block hidden' />
+              <br className='hidden max-sm:block' />
 
               <input
                 value={state.street}
